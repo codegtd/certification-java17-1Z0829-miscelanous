@@ -1,7 +1,6 @@
 package org.example;
 
 class GenericsClass<T> {
-
   T aGenericField;
 
   GenericsClass(T aGenericField) {
@@ -16,28 +15,23 @@ class GenericsClass<T> {
 
     return this.aGenericField;
   }
+
+  public static <T> T aGenericClassStaticMethod(T t) {
+    System.out.println("Now this is a generic method");
+    return t;
+  }
 }
 
 class NonGenericClass {
-
-  <T> NonGenericClass(T aGenericParameter) {
-
-    System.out.println("NonGenericClass: generic constructor: " +
-                            aGenericParameter.getClass()
-                                             .getName());
+  <Z> NonGenericClass(Z parameter) {
+    System.out.println("Gen-constructor: " + parameter.getClass().getName());
   }
 
-  public static <T> void genericStaticMethod(T aGenericParameter) {
-
-    System.out.println("NonGenericClass: static generic method: " +
-                            aGenericParameter.getClass()
-                                             .getName());
+  public static <U> void genericStaticMethod(U parameter) {
+    System.out.println("Static gen-method: " + parameter.getClass().getName());
   }
 
-  public <T> void genericInstanceMethod(T aGenericParameter) {
-
-    System.out.println("NonGenericClass: instance generic method: " +
-                            aGenericParameter.getClass()
-                                             .getName());
+  public <T> void genericInstanceMethod(T parameter) {
+    System.out.println("Instance gen-method: " + parameter.getClass().getName());
   }
 }
