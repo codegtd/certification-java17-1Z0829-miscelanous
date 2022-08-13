@@ -13,7 +13,8 @@ public class MapExample {
     Map<String, Integer> t = new TreeMap<>();
     Map<String, Integer> l = new LinkedHashMap<>();
 
-    String[] names = new String[]{"Barry", "George", "Harold", "Ida", "John"};
+    //    String[] names = new String[]{"Barry", "George", "Harold", "Ida", "John"};
+    String[] names = new String[]{"Barry", "George"};
 
     // Fill the map with some data, using put.
     for (int i = 0; i < names.length; i++) {
@@ -35,43 +36,40 @@ public class MapExample {
       catch (Exception e) {
         System.out.println(currentMap.getClass()
                                      .toGenericString() + "no accept null keys");
-        System.out.println(e.toString());
+        System.out.println(e);
       }
     }
 
     // Print out data, the entire set, then each element of set.
     System.out.println("\n--- HashMap: " + h);
     h.entrySet()
-     .forEach((s) ->
-                   System.out.println(s.getClass()
-                                       .getName()
-                                       .replace("java.util.", "") + " : " + s));
+     .forEach((s) -> System.out.println(s.getClass()
+                                         .getName()
+                                         .replace("java.util.", "") + " : " + s));
 
     // Print out data, the entire set, then each element of set.
     System.out.println("\n--- TreeMap: " + t);
     t.entrySet()
-     .forEach((s) ->
-                   System.out.println(s.getClass()
-                                       .getName()
-                                       .replace("java.util.", "") + " : " + s));
+     .forEach((s) -> System.out.println(s.getClass()
+                                         .getName()
+                                         .replace("java.util.", "") + " : " + s));
 
     // Print out data, the entire set, then each element of set.
     System.out.println("\n--- LinkedHashMap: " + l);
     l.entrySet()
-     .forEach((s) ->
-                   System.out.println(s.getClass()
-                                       .getName()
-                                       .replace("java.util.", "") + " : " + s));
+     .forEach((s) -> System.out.println(s.getClass()
+                                         .getName()
+                                         .replace("java.util.", "") + " : " + s));
 
     System.out.println("\n---- LinkedHashMap: do Simple Stuff -------");
-    doSimpleMapStuff(l);
+    //    doSimpleMapStuff(l);
 
     System.out.println("\n--- LinkedHashMap: Compute methods ---");
     // Simplify map
     l.remove("NullValue");
     l.remove(null);
     l.remove("Maggie");
-    testComputes(l);
+    //    testComputes(l);
 
     System.out.println("\n--- LinkedHashMap: test merge methods ---");
     testMerges(l);
@@ -125,53 +123,50 @@ public class MapExample {
   ║ Key found: Update          ║
   ║ Key not-found: Return-Null ║
   ╚════════════════════════════╝*/
-    m.computeIfPresent(
-         "Mary", (key, value) -> {
-           return value * 3;
-         });
+    m.computeIfPresent("Mary", (key, value) -> {
+      return value * 3;
+    });
 
   }
 
   private static void testMerges(Map<String, Integer> m) {
+    System.out.println("\nState: " + m + "\n");
 
-    System.out.println("Original State: " + m);
-    //  If Mary exists and is not null, use the function
-    System.out.println("After merge(Mary,100,val/3), return value : " +
-                            m.merge("Mary", 100, (key, val) -> val / 3));
-    System.out.println("After merge(Mary,100,val/3): " + m);
+    /*╔═════════════════════════════╗
+      ║       KEY: Not-Exist        ║
+      ╠═════════════════════════════╣
+      ║ Add(KEY+VALUE)/Return Value ║
+      ╚═════════════════════════════╝*/
+    System.out.println(
+         "KEY: Not-Exist -> Add(KEY+VALUE)/Return Value " +
+              m.merge("Mary", 100, (key, val) -> {
+                return val / 3;    }) +
+              "\nState: " + m + "\n"                         );
 
-    System.out.println("After put(Mary, null), return value : " +
-                            m.put("Mary", null));
-    System.out.println("After put(Mary, null); " + m);
+    /*╔═══════════════════════════════╗
+      ║    KEY: Exist + VALUE: Null   ║
+      ╠═══════════════════════════════╣
+      ║     Update+Return(VALUE)      ║
+      ╚═══════════════════════════════╝*/
+    m.put("Mary", null);
+    System.out.println(
+         "KEY: Exist + VALUE: Null -> Update/Return(VALUE) " +
+              m.merge("Mary", 100, (key, val) -> {
+                return val / 3;      }) +
+              "\nState: " + m + "\n"                         );
 
-    // If Mary exists, and value is null, use the value, not the function
-    System.out.println("After merge(Mary,100,val/3), return value : " +
-                            m.merge("Mary", 100, (key, val) -> val / 3));
-    System.out.println("After merge(Mary,100,val/3): " + m);
+    /*╔═══════════════════════════════╗
+      ║  KEY: Exist + VALUE: Not-Null ║
+      ╠═══════════════════════════════╣
+      ║     Apply/Return function     ║
+      ╚═══════════════════════════════╝*/
+    System.out.println(
+         "KEY: Exist + VALUE: Not-Null -> Apply/Return function  " +
+              m.merge("Mary", 100, (key, val) -> {
+                return val / 3;     }) +
+              "\nState: " + m + "\n"                               );
 
-    // If Mary exists, and value is not null , use the function
-    System.out.println("After merge(Mary,100,val/3), return value : " +
-                            m.merge("Mary", 100, (key, val) -> val / 3));
-    System.out.println("After merge(Mary,100,val/3): " + m);
-
-    // If Mary exists, and return value of the function is null, Mary
-    // gets removed from map
-    System.out.println("After merge(Mary,100,null), return value : " +
-                            m.merge("Mary", 100, (key, val) -> null));
-    System.out.println("After merge(Mary,100,null): " + m);
-
-    // If Nat does not exist, use the value, not the function
-    System.out.println("After merge(Nat,100,val*2), return value : " +
-                            m.merge("Nat", 100, (key, val) -> val * 2));
-    System.out.println("After merge(Nat,100,val*2): " + m);
-
-    m.put("Barry", null);
-    System.out.println("Set value in Barry to null: " + m);
-    m.replaceAll((key, val) -> {
-      if (val == null) return 0;
-      else return val + 1;
-    });
-    System.out.println("replaceAll: null values get 0, " +
-                            "otherwise add 1 to existing value: " + m);
+    m.replaceAll((key, val) -> {return key.equals("Barry") ? 0 : val + 1;});
+    System.out.println("\nState: " + m + "\n");
   }
 }
