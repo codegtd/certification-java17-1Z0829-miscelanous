@@ -1,4 +1,4 @@
-package org.example;
+package org.example.collections;
 
 import java.util.Collection;
 import java.util.Map;

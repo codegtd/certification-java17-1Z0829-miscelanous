@@ -1,4 +1,4 @@
-package org.example;/*
+package org.example.initializers;/*
 Learn Programming Academy's Java 1Z0-815 Certification Exam Course
 Section 6: Describing and Using Objects and Classes
 Topic: Declare and Instantiate Objects

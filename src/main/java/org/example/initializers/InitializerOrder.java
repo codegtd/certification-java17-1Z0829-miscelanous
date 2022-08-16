@@ -1,4 +1,4 @@
-package org.example;
+package org.example.initializers;
 
 class OrderedClass {
     static int statementOrder;
