@@ -7,19 +7,23 @@ import java.util.TreeMap;
 
 public class MapSetExamplesV2 {
   public static void main(String[] args) {
+
     Map<String, Integer> map = new TreeMap<>(
-         Map.of("M", 30,"J", 35,
-                "R", 23,"G", 15));
+         Map.of("M", 30, "J", 35,
+                "R", 23, "G", 15
+         ));
 
     Set viewSet = map.entrySet();
     Collection<Integer> viewValues = map.values();
     Collection<String> viewKeys = map.keySet();
 
-    showMapsAndViews(map, viewSet, viewValues, viewKeys);
+    showMapsAndViews(map, viewSet, viewValues, viewKeys, "Before Remove");
+
     viewSet.remove(Map.entry("M", 30));
     viewValues.remove(35);
     viewKeys.remove("R");
-    showMapsAndViews(map, viewSet, viewValues, viewKeys);
+
+    showMapsAndViews(map, viewSet, viewValues, viewKeys, "After Remove");
 
 
     Map<String, Integer> mutable1 = new TreeMap<>(Map.copyOf(map));
@@ -40,19 +44,25 @@ public class MapSetExamplesV2 {
 
   }
 
-  private static void showMutability(Map<String, Integer> mutable, Map<String, Integer> immutable) {
+  private static void showMutability(
+       Map<String, Integer> mutable,
+       Map<String, Integer> immutable) {
 
     System.out.println(mutable);
     System.out.println(immutable);
   }
 
-  private static void showMapsAndViews(Map<String, Integer> originMap, Set viewSet,
-                                       Collection<Integer> viewValues, Collection<String> viewKeys) {
+  private static void showMapsAndViews(
+       Map<String, Integer> map,
+       Set set,
+       Collection<Integer> values,
+       Collection<String> keys,
+       String txt) {
 
-    System.out.println("\n");
-    System.out.println("originMap) " + originMap);
-    System.out.println("viewSet) " + viewSet);
-    System.out.println("viewValues) " + viewValues);
-    System.out.println("viewKeys) " + viewKeys);
+    System.out.println("\n" + txt + "-------------------------");
+    System.out.println(" originMap: " + map);
+    System.out.println("   viewSet: " + set);
+    System.out.println("viewValues: " + values);
+    System.out.println("  viewKeys: " + keys);
   }
 }

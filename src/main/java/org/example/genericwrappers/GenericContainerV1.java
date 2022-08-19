@@ -1,21 +1,24 @@
-package org.example.wrappers;
+package org.example.genericwrappers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenericContainer<T> {
+public class GenericContainerV1<T> {
 
-  List<T> wrappedList; // Objects must be typed: T-Superclass OR T
+  List<T> wrappedList;
 
-  GenericContainer(List<T> wrappedList) {
+  GenericContainerV1(List<T> wrappedList) {
+
     this.wrappedList = wrappedList;
   }
 
   public Object myGet(int index) {
+
     return wrappedList.get(index);
   }
 
   public void myAdd(T o) {
+
     wrappedList.add(o);
   }
 
@@ -28,7 +31,7 @@ public class GenericContainer<T> {
   public static void main(String[] args) {
 
     List<CharSequence> l = new ArrayList<CharSequence>();
-    GenericContainer<CharSequence> g = new GenericContainer<>(l);
+    GenericContainerV1<CharSequence> g = new GenericContainerV1<>(l);
 
     g.myAdd("hi");
 

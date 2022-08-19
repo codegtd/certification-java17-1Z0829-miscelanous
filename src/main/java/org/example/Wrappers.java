@@ -1,10 +1,10 @@
-package org.example.wrappers;
+package org.example;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class WrapperLimits {
+public class Wrappers {
   public static void main(String[] args) {
 
     double d = 32.0f;

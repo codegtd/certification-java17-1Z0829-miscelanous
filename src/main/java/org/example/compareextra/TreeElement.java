@@ -38,6 +38,7 @@ class TreeExamples {
          new TreeElement(10, "Tim"));
 
 //    TreeSet<TreeElement> treeSet = new TreeSet<>(list);
+
     TreeSet<TreeElement> treeSet = new TreeSet<>(
          Comparator.comparing(TreeElement::getId).reversed() );
     treeSet.addAll(list);

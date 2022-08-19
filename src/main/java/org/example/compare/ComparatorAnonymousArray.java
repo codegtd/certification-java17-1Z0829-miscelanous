@@ -13,10 +13,10 @@ public class ComparatorAnonymousArray {
 
     System.out.println("Before: " + Arrays.toString(products));
     
-    //POSITION: THIS -> OBJECT
-    // THIS-CURRENT < OBJECT: -1 -> CURRENT POSITION - MOVE AHEAD
-    // THIS-CURRENT > OBJECT: +1 -> CURRENT POSITION - MOVE BACK
-    // THIS-CURRENT = OBJECT: NO MOVE
+    // POSITION: THIS -> OBJECT
+    // - THIS-CURRENT < OBJECT: -1 -> CURRENT POSITION - MOVE AHEAD
+    // - THIS-CURRENT > OBJECT: +1 -> CURRENT POSITION - MOVE BACK
+    // - THIS-CURRENT = OBJECT: NO MOVE
     Arrays.sort(products, new Comparator<Product>() {
       @Override
       public int compare(Product product1, Product product2) {
